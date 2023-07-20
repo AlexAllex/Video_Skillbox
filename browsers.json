@@ -1,0 +1,10 @@
+{
+  "chrome": {
+    "default": "Latest",
+    "versions": {
+      "Latest": {
+        "image": ["/Users/aslanidialexandra/Downloads/chromedriver_mac_arm64"]
+      }
+    }
+  }
+}
