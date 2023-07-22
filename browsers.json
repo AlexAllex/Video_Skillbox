@@ -3,7 +3,7 @@
     "default": "Latest",
     "versions": {
       "Latest": {
-        "image": ["/Users/aslanidialexandra/Downloads/chromedriver_mac_arm64"]
+        "image": ["/Users/aslanidialexandra/Video 2/Video_Skillbox"]
       }
     }
   }

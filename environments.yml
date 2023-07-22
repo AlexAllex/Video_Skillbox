@@ -2,11 +2,9 @@ name: skillbox_3
 channels:
  - conda-forge
 dependencies:
- - python=3.9.5
- - requests=2.26.0
+ - python=3.11
+ - requests
  - selenium
  - python-chromedriver-binary
  - pytest
- - pip:
-    -allure-pytest
 
