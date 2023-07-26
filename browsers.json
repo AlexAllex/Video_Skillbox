@@ -3,7 +3,7 @@
     "default": "Latest",
     "versions": {
       "Latest": {
-        "image": ["/Users/aslanidialexandra/Video 2/Video_Skillbox"]
+        "image": ["/Users/aslanidialexandra/miniconda/envs/skillbox_3/lib/python3.11/site-packages/chromedriver_binary"]
       }
     }
   }
