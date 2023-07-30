@@ -1,5 +1,7 @@
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+#from selenium.webdriver.chrome.options import Options
+#from webdriver_manager.chrome import ChromeDriverManager
 import pytest
 #import allure
 
@@ -10,10 +12,17 @@ class TestExample:
 
 
         options = ChromeOptions()
-        options.binary_location = r'C:/chromium-48/chrome.exe' #тут указываете ссылку на ваш хром браузер на вашем компьютере -Что это? Ссылка на хромдрайвер? /Users/aslanidialexandra/miniconda/envs/skillbox_3/lib/python3.11/site-packages/chromedriver_binary
+        options.binary_location = r'/Applications/Google/Chrome.app/Contents/MacOS/Google/Chrome 114'
         driver = Chrome(options=options)
         driver.get("https://skillbox.ru/")
         assert 'Skillbox – образовательная платформа с онлайн-курсами.' == driver.title
+        
+        from selenium import webdriver
+
+
+    #driver = webdriver.Chrome(ChromeDriverManager().install())
+    #driver.set_window_size(1024, 600)
+    #driver.maximize_window()
 
 
 
