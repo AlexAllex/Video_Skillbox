@@ -60,24 +60,40 @@ class TestGitHab1:
     def test_keys_4(self, set_up_browser):
         driver = set_up_browser
         driver.get("https://skillbox.ru/code/")
-        #time.sleep(15)
-        driver.execute_script("window.scrollBy(0, 100);")
-        driver.find_element(By.CSS_SELECTOR, ".ui-radio-field__input[value='profession']").click()
-        el = driver.find_element(By.XPASS, '(//*[contains(@class, "p-slider-handle")])[4]')
+        time.sleep(20)
+        driver.execute_script("window.scrollBy(0, 300);")
+        driver.find_element(By.CSS_SELECTOR, "label[value='profession']").click()
+        time.sleep(10)
+        first_slider = driver.find_element(By.XPATH,
+                                           '//div[@aria-valuenow="1"]//button[@aria-label="Изменить диапозон"]')
+        time.sleep(10)
+        second_slider = driver.find_element(By.XPATH,
+                                            '//div[@aria-valuenow="24"]//button[@aria-label="Изменить диапозон"]')
         action_chains = webdriver.ActionChains(driver)
-        action_chains\
-            .click_and_hold(el)\
-            .move_by_offset(xoffset=50, yoffset=0)\
-            .perform()
+        action_chains.click_and_hold(first_slider).move_by_offset(xoffset=80, yoffset=0).perform()
         action_chains.release().perform()
+        action_chains.click_and_hold(second_slider).move_by_offset(xoffset=-60, yoffset=0).perform()
+        action_chains.release().perform()
+
+
+        driver.find_element(By.XPATH, "(//*[contains(@class, 'filter-checkboxes-list__value')])[5]").click()
+        time.sleep(5)
+        pass
+
+
+
 
     def test_keys_5(self, set_up_browser):
         driver = set_up_browser
         driver.get("https://github.com/microsoft/vscode/graphs/commit-activity")
-        action_chains = webdriver.ActionChains(driver)
         time.sleep(13)
-        action_chains.move_to_element( driver.find_element(By.CSS_SELECTOR, '.bar.mini.active'))\
-            .perform()
+        action_chains = webdriver.ActionChains(driver)
+
+        #action_chains.move_to_element( driver.find_element(By.CSS_SELECTOR, '.bar.mini.active'))\
+           # .perform()
+        table_column = driver.find_element(By.XPATH, "//*[@class='bar mini'][13]")
+        action_chains = webdriver.ActionChains(driver)
+        action_chains.move_to_element(table_column).perform()
         pass
         
        
