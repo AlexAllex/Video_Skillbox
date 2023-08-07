@@ -4,6 +4,7 @@ from selenium.webdriver import Keys
 import time
 from selenium.webdriver.support.ui import Select
 
+from Src.tests.browser import set_up_browser_1
 
 
 class TestGitHab1:
@@ -57,8 +58,8 @@ class TestGitHab1:
         pass
     
     
-    def test_keys_4(self, set_up_browser):
-        driver = set_up_browser
+    def test_keys_4(self, set_up_browser_1):
+        driver = set_up_browser_1
         driver.get("https://skillbox.ru/code/")
         time.sleep(20)
         driver.execute_script("window.scrollBy(0, 300);")
