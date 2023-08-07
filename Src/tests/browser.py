@@ -44,6 +44,3 @@ def set_up_browser_1():
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
-    from selenium import webdriver
-    from webdriver_manager.chrome import ChromeDriverManager
-
