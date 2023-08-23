@@ -1,4 +1,6 @@
-
+#pytest_plugins = [
+    #"Src.browser"
+#]
 import  pytest
 import webdriver_manager
 from selenium import webdriver

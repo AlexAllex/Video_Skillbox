@@ -4,7 +4,7 @@ from selenium.webdriver import Keys
 import time
 from selenium.webdriver.support.ui import Select
 
-from Src.tests.browser import set_up_browser_1
+#from Src.tests.browser import set_up_browser_1
 
 
 class TestGitHab1:
