@@ -40,9 +40,9 @@ def set_up_browser ():
 
 def set_up_browser_1():
 
-    driver = webdriver_manager.Chrome(ChromeDriverManager().install())
 
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+
+    driver = webdriver.Chrome()
 
     driver.set_window_size(1024, 600)
     driver.maximize_window()
