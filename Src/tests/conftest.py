@@ -22,8 +22,8 @@ def set_up_browser ():
     options = ChromeOptions()
     driver = Chrome(options=options)
     options.page_load_strategy = "normal"
-    driver.get("https://skillbox.ru/")
-    driver.implicitly_wait(30)
+    #driver.get("https://skillbox.ru/")
+    #driver.implicitly_wait(30)
     yield driver
     driver.quit()
 
@@ -47,5 +47,18 @@ def set_up_browser_1():
     driver.set_window_size(1024, 600)
     driver.maximize_window()
     driver.implicitly_wait(10)
+    yield driver
+    driver.quit()
+
+
+def set_up_browser_2():
+    options = Options
+    driver = webdriver.Chrome()
+
+    options = ChromeOptions()
+    #driver = Chrome(options=options)
+    options.page_load_strategy = "normal"
+    #driver.get("https://skillbox.ru/")
+    #driver.implicitly_wait(30)
     yield driver
     driver.quit()

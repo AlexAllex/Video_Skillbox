@@ -3,11 +3,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import Keys
 import time
 from selenium.webdriver.support.ui import Select
+import pytest
 
 #from Src.tests.browser import set_up_browser_1
 
 
 class TestGitHab1:
+    
+    @pytest.mark.keys_1
     def test_keys_1(self, set_up_browser):
         driver = set_up_browser
         driver.get('https://github.com/microsoft/vscode/issues')
@@ -20,28 +23,28 @@ class TestGitHab1:
         actions_chains.key_down(Keys.SPACE).click()
         el.send_keys('bug')
         el.click()
-       # expected_value = "Bug" or 'bug'
-        #bug_name = driver.find_element(By.CSS_SELECTOR, ".Text-sc-17v1xeu-0.kWPXhV.search-match")
-
-
-        #assert bug_name.get_attribute('class') == expected_value
+        find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, 'bug' or 'Bug')
+        for i in find_elements: 
+      
+            assert "bug" or "Bug"in i.text , 'ссылка не содержит нужного слова'
+        
+       
 
     def test_keys_2(self, set_up_browser):
         driver = set_up_browser
         driver.get('https://github.com/microsoft/vscode/issues')
-        #time.sleep(10)
+        
         driver.find_element(By.CSS_SELECTOR, '.btn-link[title="Author"] ').click()
         el1 = driver.find_element(By.ID, 'author-filter-field')
         el1.send_keys('bpasero')
         el1.click()
-        #author = driver.find_element(By.CSS_SELECTOR, '.opened-by')
-        #expected_value = " bpasero"
-
-        #assert author.get_attribute('class') == expected_value
-        #assert author.text == expected_value
+        find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, 'bpasero')
+        time.sleep(15)
+        for i in find_elements:
+            assert "brasero" in i.text, 'ссылка не содержит нужного слова' 
         pass
     
-    
+    @pytest.mark.keys_3
     def test_keys_3(self, set_up_browser):
         driver = set_up_browser
         driver.get('https://github.com/search/advanced')
@@ -54,7 +57,9 @@ class TestGitHab1:
         el2 = driver.find_element(By.ID, 'search_filename')
         el2.send_keys('environment.yml')
         driver.find_element(By.CSS_SELECTOR, ".form-group.flattened .btn.flex-auto").click()
-         
+        find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, '>20k')
+        for i in find_elements:
+            assert '>20k' in i.text, 'ссылка не содержит нужного колличества звезд'
         pass
     
     
@@ -77,8 +82,14 @@ class TestGitHab1:
         action_chains.release().perform()
 
 
-        driver.find_element(By.XPATH, "(//*[contains(@class, 'filter-checkboxes-list__value')])[5]").click()
+        check_box = driver.find_element(By.XPATH, "(//*[contains(@class, 'filter-checkboxes-list__value')])[5]").click()
+        assert check_box.is_selected() is True
         time.sleep(5)
+        
+        title_list = driver.find_elements(By.XPATH, '//*[@class="ui-product-card"]//h3')
+        for title in title_list:
+            assert 'C++' in title.text, 'Текст не присутсвует в заголовке'
+
         pass
 
 
@@ -88,13 +99,14 @@ class TestGitHab1:
         driver = set_up_browser
         driver.get("https://github.com/microsoft/vscode/graphs/commit-activity")
         time.sleep(13)
-        action_chains = webdriver.ActionChains(driver)
-
-        #action_chains.move_to_element( driver.find_element(By.CSS_SELECTOR, '.bar.mini.active'))\
-           # .perform()
         table_column = driver.find_element(By.XPATH, "//*[@class='bar mini'][13]")
         action_chains = webdriver.ActionChains(driver)
         action_chains.move_to_element(table_column).perform()
+        tultip_list = driver.find_elements(By.XPATH, '//div[@class="svg-tip n"]')
+
+        for i in tultip_list:
+            assert '251 commits the week of Dec 4' == i.text, 'Тултип не совпадает'
+
         pass
         
        
