@@ -4,6 +4,8 @@ from selenium.webdriver import Keys
 import time
 from selenium.webdriver.support.ui import Select
 import pytest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 #from Src.tests.browser import set_up_browser_1
 
@@ -29,19 +31,26 @@ class TestGitHab1:
             assert "bug" or "Bug"in i.text , 'ссылка не содержит нужного слова'
         
        
-
+    @pytest.mark.keys_2
     def test_keys_2(self, set_up_browser):
         driver = set_up_browser
         driver.get('https://github.com/microsoft/vscode/issues')
         
         driver.find_element(By.CSS_SELECTOR, '.btn-link[title="Author"] ').click()
         el1 = driver.find_element(By.ID, 'author-filter-field')
+        #el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field")))  
+
         el1.send_keys('bpasero')
-        el1.click()
+        el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field"))).click()
+        
+        #el1.click()
+        time.sleep(15)
         find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, 'bpasero')
         time.sleep(15)
+        print(find_elements)
         for i in find_elements:
-            assert "brasero" in i.text, 'ссылка не содержит нужного слова' 
+            print(i.text)
+            assert "brasero" in i.text, 'ссылка не содержит нужного слова'     
         pass
     
     @pytest.mark.keys_3
@@ -82,13 +91,16 @@ class TestGitHab1:
         action_chains.release().perform()
 
 
-        check_box = driver.find_element(By.XPATH, "(//*[contains(@class, 'filter-checkboxes-list__value')])[5]").click()
+        check_box = driver.find_element(By.XPATH, "(//*[contains(@class, 'ui-checkbox-field__value')])[5] ").click()
+        print(check_box)
         assert check_box.is_selected() is True
         time.sleep(5)
         
         title_list = driver.find_elements(By.XPATH, '//*[@class="ui-product-card"]//h3')
         for title in title_list:
-            assert 'C++' in title.text, 'Текст не присутсвует в заголовке'
+             print(title.text)
+            
+             assert 'C++' in title.text, 'Текст не присутсвует в заголовке'
 
         pass
 
