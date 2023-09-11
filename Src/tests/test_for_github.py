@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import allure
 
 #from Src.tests.browser import set_up_browser_1
 
@@ -41,12 +42,12 @@ class TestGitHab1:
         #el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field")))  
 
         el1.send_keys('bpasero')
-        el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field"))).click()
+        #el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field"))).click()
         
-        #el1.click()
-        time.sleep(15)
+        el1.click()
+        
         find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, 'bpasero')
-        time.sleep(15)
+      
         print(find_elements)
         for i in find_elements:
             print(i.text)
@@ -100,13 +101,13 @@ class TestGitHab1:
         for title in title_list:
              print(title.text)
             
-             assert 'C++' in title.text, 'Текст не присутсвует в заголовке'
+             assert 'C++' in title.iner_text(), 'Текст не присутсвует в заголовке'
 
         pass
 
 
 
-
+    @pytest.mark.keys_5
     def test_keys_5(self, set_up_browser):
         driver = set_up_browser
         driver.get("https://github.com/microsoft/vscode/graphs/commit-activity")
@@ -117,7 +118,19 @@ class TestGitHab1:
         tultip_list = driver.find_elements(By.XPATH, '//div[@class="svg-tip n"]')
 
         for i in tultip_list:
-            assert '251 commits the week of Dec 4' == i.text, 'Тултип не совпадает'
+            assert '263 commits the week of Dec 11' == i.text, 'Тултип не совпадает'
+            
+            
+    #def test_mouse_move(self, set_up_browser):
+       # with allure.step('Открытие страницы https://github.com/microsoft/vscode/graphs/commit-activity'):
+            #set_up_browser.goto('https://github.com/microsoft/vscode/graphs/commit-activity')
+
+       # with allure.step('Наведение мышки на 13 элемент от начала графика'):
+            #set_up_browser.hover("//*[@class='bar mini'][13]")
+
+        #with allure.step('Проверка совпадения подсказки на графике с ожидаемым значением'):
+           # tultip_list = set_up_browser.query_selector('//div[@class="svg-tip n"]')
+            #assert '144 commits the week of Nov 20' == tultip_list.inner_text(), 'Тултип не совпадает'
 
         pass
         
