@@ -37,21 +37,26 @@ class TestGitHab1:
         driver = set_up_browser
         driver.get('https://github.com/microsoft/vscode/issues')
         
-        driver.find_element(By.CSS_SELECTOR, '.btn-link[title="Author"] ').click()
+        driver.find_element(By.CSS_SELECTOR, 'summary[title="Author"]').click()
+        
         el1 = driver.find_element(By.ID, 'author-filter-field')
-        #el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field")))  
-
         el1.send_keys('bpasero')
+        time.sleep(5)
+        
+        driver.find_element(By.XPATH, "//a/*[contains(text(), 'bpasero')]").click()
         #el1 = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.ID, "author-filter-field"))).click()
         
-        el1.click()
         
-        find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, 'bpasero')
-      
-        print(find_elements)
-        for i in find_elements:
-            print(i.text)
-            assert "brasero" in i.text, 'ссылка не содержит нужного слова'     
+        time.sleep(10)
+        Find_elements = driver.find_elements(By.PARTIAL_LINK_TEXT, 'bpasero')
+        
+        time.sleep(5)
+       
+        for i in Find_elements:
+             print(i.text)
+            
+             assert "bpasero" in i.text, 'ссылка не содержит нужного слова'
+          
         pass
     
     @pytest.mark.keys_3
@@ -72,7 +77,7 @@ class TestGitHab1:
             assert '>20k' in i.text, 'ссылка не содержит нужного колличества звезд'
         pass
     
-    
+    @pytest.mark.keys_4
     def test_keys_4(self, set_up_browser_1):
         driver = set_up_browser_1
         driver.get("https://skillbox.ru/code/")
@@ -91,17 +96,25 @@ class TestGitHab1:
         action_chains.click_and_hold(second_slider).move_by_offset(xoffset=-60, yoffset=0).perform()
         action_chains.release().perform()
 
+       
 
-        check_box = driver.find_element(By.XPATH, "(//*[contains(@class, 'ui-checkbox-field__value')])[5] ").click()
+        driver.find_element(By.XPATH, "//span[contains(@class, 'filter-checkboxes-list__value')][1]").click()
+        check_box = driver.find_element(By.XPATH, '//span[contains(@class, "filter-checkboxes-list__value")][1]')
+        print('-'*20)
         print(check_box)
+
+        print('-'*20)
         assert check_box.is_selected() is True
         time.sleep(5)
         
-        title_list = driver.find_elements(By.XPATH, '//*[@class="ui-product-card"]//h3')
+        card_list = driver.find_elements(By.XPATH, '//*[@class="ui-product-card"]//h3')
+        title_list = [card.title for card in card_list]
+        assert 'C++' in title_list, 'Текст не присутсвует в заголовке'
+
         for title in title_list:
              print(title.text)
             
-             assert 'C++' in title.iner_text(), 'Текст не присутсвует в заголовке'
+             #assert 'C++' in title.iner_text(), 'Текст не присутсвует в заголовке'
 
         pass
 
@@ -121,17 +134,20 @@ class TestGitHab1:
             assert '263 commits the week of Dec 11' == i.text, 'Тултип не совпадает'
             
             
-    #def test_mouse_move(self, set_up_browser):
-       # with allure.step('Открытие страницы https://github.com/microsoft/vscode/graphs/commit-activity'):
-            #set_up_browser.goto('https://github.com/microsoft/vscode/graphs/commit-activity')
+    def test_mouse_move(self, set_up_browser):
+        with allure.step('Открытие страницы https://github.com/microsoft/vscode/graphs/commit-activity'):
+            set_up_browser.get('https://github.com/microsoft/vscode/graphs/commit-activity')
+        time.sleep(2)  # ожидание загрузки таблицы
 
-       # with allure.step('Наведение мышки на 13 элемент от начала графика'):
-            #set_up_browser.hover("//*[@class='bar mini'][13]")
+        with allure.step('Наведение мышки на 13 элемент от начала графика'):
+            table_column = set_up_browser.find_element(By.XPATH, "//*[@class='bar mini'][13]")
+            action_chains = webdriver.ActionChains(set_up_browser)
+            action_chains.move_to_element(table_column).perform()
 
-        #with allure.step('Проверка совпадения подсказки на графике с ожидаемым значением'):
-           # tultip_list = set_up_browser.query_selector('//div[@class="svg-tip n"]')
-            #assert '144 commits the week of Nov 20' == tultip_list.inner_text(), 'Тултип не совпадает'
-
+        with allure.step('Проверка совпадения подсказки на графике с ожидаемым значением'):
+            tultip_list = set_up_browser.find_elements(By.XPATH, '//div[@class="svg-tip n"]')
+            for i in tultip_list:
+                assert '294 commits the week of Nov 13' == i.text, 'Тултип не совпадает'
         pass
         
        
