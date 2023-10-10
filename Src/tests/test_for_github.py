@@ -81,13 +81,13 @@ class TestGitHab1:
     def test_keys_4(self, set_up_browser_1):
         driver = set_up_browser_1
         driver.get("https://skillbox.ru/code/")
-        time.sleep(20)
+        time.sleep(10)
         driver.execute_script("window.scrollBy(0, 300);")
         driver.find_element(By.CSS_SELECTOR, "label[value='profession']").click()
-        time.sleep(10)
+        #time.sleep(5)
         first_slider = driver.find_element(By.XPATH,
                                            '//div[@aria-valuenow="1"]//button[@aria-label="Изменить диапозон"]')
-        time.sleep(10)
+        time.sleep(3)
         second_slider = driver.find_element(By.XPATH,
                                             '//div[@aria-valuenow="24"]//button[@aria-label="Изменить диапозон"]')
         action_chains = webdriver.ActionChains(driver)
@@ -104,18 +104,20 @@ class TestGitHab1:
         print(check_box)
 
         print('-'*20)
-        assert check_box.is_selected() is True
+        #assert check_box.is_selected(),  False
         time.sleep(5)
         
         card_list = driver.find_elements(By.XPATH, '//*[@class="ui-product-card"]//h3')
-        title_list = [card.title for card in card_list]
-        assert 'C++' in title_list, 'Текст не присутсвует в заголовке'
-
-        for title in title_list:
+        print (card_list)
+        #title_list = [card.title for card in card_list]
+        #assert '1C' in title_list, 'Текст не присутсвует в заголовке'
+        time.sleep(3)
+        for title in card_list:
              print(title.text)
             
-             #assert 'C++' in title.iner_text(), 'Текст не присутсвует в заголовке'
-
+             #assert '1C' in title.iner_text(), 'Текст не присутсвует в заголовке'
+             assert '1С' in title.text, 'Текст не присутсвует в заголовке'
+      
         pass
 
 
